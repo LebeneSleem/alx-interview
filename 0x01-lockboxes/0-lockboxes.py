@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 def canUnlockAll(boxes):
-    n = len(boxes)
-    visited = [False] * n
-    visited[0] = True
-    queue = [0]
+    num_boxes = len(boxes)
+    visited = [False] * num_boxes
 
-    while queue:
-        current_box = queue.pop(0)
-        for key in boxes[current_box]:
-            if key < n and not visited[key]:
-                visited[key] = True
-                queue.append(key)
+    def dfs(box):
+        if visited[box]:
+            return
+        visited[box] = True
+        for key in boxes[box]:
+            dfs(key)
 
+    dfs(0)
     return all(visited)
 
 # Test cases
